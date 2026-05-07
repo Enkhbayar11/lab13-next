@@ -1,20 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-async function getProduct(id) {
-  const res = await fetch(`http://localhost:3000/api/products/${id}`, {
-    cache: "no-store",
-  });
+const products = [
+  { id: 1, title: "iPhone 15", price: 3200000, description: "Apple smartphone" },
+  { id: 2, title: "MacBook Air", price: 4500000, description: "Light laptop" },
+  { id: 3, title: "AirPods Pro", price: 850000, description: "Wireless earbuds" },
+];
 
-  if (!res.ok) {
-    return null;
-  }
-
-  return res.json();
-}
-
-export default async function ProductDetailPage({ params }) {
-  const product = await getProduct(params.id);
+export default function ProductDetailPage({ params }) {
+  const product = products.find((p) => p.id === Number(params.id));
 
   if (!product) {
     notFound();

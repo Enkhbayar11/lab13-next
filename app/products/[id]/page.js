@@ -7,8 +7,10 @@ const products = [
   { id: 3, title: "AirPods Pro", price: 850000, description: "Wireless earbuds" },
 ];
 
-export default function ProductDetailPage({ params }) {
-  const product = products.find((p) => p.id === Number(params.id));
+export default async function ProductDetailPage({ params }) {
+  const { id } = await params;
+
+  const product = products.find((p) => p.id === Number(id));
 
   if (!product) {
     notFound();
